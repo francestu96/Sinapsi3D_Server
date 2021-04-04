@@ -3,8 +3,8 @@ const cart_service = require('../services/cart_service');
 const root_controller = require('./root_controller');
 const router = express.Router();
 
-router.get("/", async (req, res, next) => {
-    cart_service.cart_get(req.query.userId, (err, dres) => {
+router.get("/:userId", async (req, res, next) => {
+    cart_service.cart_get(req.params.userId, (err, dres) => {
         if (err != null) {
             console.log(err)
             root_controller.req_fail(res, err.message)

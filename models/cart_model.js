@@ -21,18 +21,20 @@ let item_schema = new Schema({
     }
 }, {
     timestamps: true
-})
+});
+
 const cart_schema = new Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
     },
-    items: [item_schema],
+    items: [ item_schema ],
     subTotal: {
         default: 0,
         type: Number
     }
 }, {
     timestamps: true
-})
+});
+
 module.exports = mongoose.model('cart', cart_schema);

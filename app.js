@@ -5,9 +5,11 @@ const express = require('express');
 const error_handler_service = require('./services/error_handler_service');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const database = require('./repositories/mongo/database');
+const database = require('./database');
 
-const user_controller = require('./controllers/user_controller');
+const auth_middleware = require("./controllers/middlewares/auth_middleware");
+
+const auth_controller = require('./controllers/auth_controller');
 const product_controller = require('./controllers/product_controller');
 const cart_controller = require('./controllers/cart_controller');
 
@@ -17,14 +19,17 @@ database.connect();
 
 const server = express();
 server.use(express.json());
-server.use(cors());
+// server.use(express.urlencoded({ extended: true }));
+server.use(cors({
+    origin: "http://localhost:3000"
+}));
 
 //////////////////////////////////////////
 
 //Routing
-server.use('/api/user', user_controller);
+server.use('/api/auth', auth_controller);
 server.use('/api/product', product_controller);
-server.use('/api/cart', cart_controller);
+server.use('/api/cart', [auth_middleware.verify_token], cart_controller);
 
 server.use((error, req, res, next) => {
     console.log(error)

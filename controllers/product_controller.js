@@ -1,7 +1,7 @@
 const fs = require('fs');
 const express = require('express');
 const router = express.Router();
-const upload = require('./middlewares/middleware_upload');
+const upload = require('./middlewares/upload_middleware');
 const resize_image = require('../helper/resize_image');
 const root_controller = require('./root_controller');
 const product_service = require('../services/product_service');
@@ -23,6 +23,18 @@ router.get("/", async (req, res, next) => {
     page.page_number = req.query.page_number ? req.query.page_number - 1 : 0;
 
     product_service.product_list(filter, sort, page, (err, dres) => {
+        if (err != null) {
+            console.log(err)
+            root_controller.req_fail(res, err.message)
+        } else {
+            res.send(dres)
+        }
+        next();
+    });
+});
+
+router.get("/:productId", async (req, res, next) => {
+    product_service.product_get(req.params.userId, (err, dres) => {
         if (err != null) {
             console.log(err)
             root_controller.req_fail(res, err.message)
