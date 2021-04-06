@@ -4,7 +4,7 @@ const user_model = require("../../models/user_model");
 const verify_token = (req, res, next) => {
     let token = req.headers["authorization"];
 
-    if (!token) {
+    if (!token || !token.split(' ')[1]) {
         return res.status(403).send({ message: "No authorization provided!" });
     }
 

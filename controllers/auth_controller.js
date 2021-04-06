@@ -26,14 +26,12 @@ router.post("/signin", async (req, res, next) => {
                     root_controller.req_unauth_403(res, { message: "Credenziali non valide" });
                 }
                 else{
-                    var token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-                        expiresIn: 86400 // 24 hours
-                    });
+                    var access_token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
 
                     res.send({
-                        id: user._id,
-                        email: user.email,
-                        access_token: token
+                        token_type:"Bearer",
+                        access_token: access_token,
+                        id_token: jwt.sign({ id: user.id, name: user.name, email: user.email, roles: user.roles }, process.env.JWT_SECRET)
                     });
                 }
             }
@@ -43,7 +41,7 @@ router.post("/signin", async (req, res, next) => {
 });
 
 router.post("/signup", async (req, res, next) => {
-    const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.\?\/~_\+-=|]).{8,}$/;
+    const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}\[\]:;<>,.\?\/~_\+\-=|]).{8,}$/;
 
     if (!req.body.password){
         root_controller.req_fail(res, { message: "Inserire una password" });
@@ -54,17 +52,29 @@ router.post("/signup", async (req, res, next) => {
         }
         else{
             let payload = {
+                name: req.body.name,
                 email: req.body.email,
                 password: bcrypt.hashSync(req.body.password),
                 address: req.body.address,
                 roles: [role_const.USER]
             }
-            user_service.user_create(payload, (err, dres) => {
+            user_service.user_create(payload, (err, user) => {
                 if (err != null) {
-                    console.log(err);
-                    root_controller.req_fail(res, err.message);
+                    if(err.code === 11000){
+                        root_controller.req_fail(res, "Email già utilizzata");
+                    }
+                    else{
+                        console.log(err);
+                        root_controller.req_fail(res, err.message);
+                    }
                 } else {
-                    res.send(dres);
+                    var access_token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+
+                    res.send({
+                        token_type:"Bearer",
+                        access_token: access_token,
+                        id_token: jwt.sign({ id: user.id, name: user.name, email: user.email, roles: user.roles }, process.env.JWT_SECRET)
+                    });
                 }
                 next();
             });
