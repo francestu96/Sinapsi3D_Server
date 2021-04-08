@@ -12,7 +12,7 @@ const product_list = async (filter, sort, page, delegate) =>{
 
 const product_get = async (productId, delegate) =>{
     try {
-        let product = product = await product_model.findById(productId);
+        let product = await product_model.findById(productId);
         if(!product)
             delegate({ message: "Product not found"});
         else if (delegate != null)

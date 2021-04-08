@@ -4,11 +4,11 @@ const user_model = require("../../models/user_model");
 const verify_token = (req, res, next) => {
     let token = req.headers["authorization"];
 
-    if (!token || !token.split(' ')[1]) {
+    if (!token) {
         return res.status(403).send({ message: "No authorization provided!" });
     }
 
-    jwt.verify(token.split(' ')[1], process.env.JWT_SECRET, (err, decoded) => {
+    jwt.verify(token.replace("Bearer", "").trim(), process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
             return res.status(401).send({ message: "Unauthorized!" });
         }

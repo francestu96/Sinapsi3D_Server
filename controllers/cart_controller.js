@@ -27,7 +27,6 @@ router.post("/", async (req, res, next) => {
     });
 });
 
-
 router.delete("/", async (_, res, next) => {
     cart_service.cart_delete((err, dres) => {
         if (err != null) {

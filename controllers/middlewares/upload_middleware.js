@@ -1,56 +1,14 @@
-const multer = require('multer')
-const path = require('path');
-const fs = require('fs');
+const multer = require('multer');
 
-/**
- * Middle ware for upload Image
- */
+const storage =  multer.memoryStorage();
 
- //File size
-const limit = {
-    fileSize: 10*1024*1024,
-  }
-
-// Storage
-const storage = multer.diskStorage({
-    destination: (_, file, cb) => {
-        cb(null, img_upload_dir() );
-    },
-    filename: (_, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
-
-//file type
 const file_filter = (_, file, cb) => {
-    if (file.mimetype == 'image/jpeg') {
+    if (file.mimetype.split("/")[0] === 'image') {
         cb(null, true);
     } else {
         cb(null, false);
     }
 }
 
-const img_upload_dir = () =>{
-    let dir = process.env.DIR_UPLOAD;
-
-    if (!fs.existsSync(dir)){
-        try{
-            fs.mkdirSync(dir);
-        }catch (ex){
-
-        }
-    }
-
-    dir = dir+`\/temp`
-    if (!fs.existsSync(dir)){
-        try{
-            fs.mkdirSync(dir);
-        }catch (ex){
-
-        }
-    }
-    return dir+`\/`;
-}
-
-const upload = multer({ storage: storage, fileFilter: file_filter ,limits:limit});
-module.exports = upload;
+const upload_middleware = multer({ storage: storage, fileFilter: file_filter });
+module.exports = upload_middleware;

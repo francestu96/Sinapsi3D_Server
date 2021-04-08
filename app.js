@@ -2,9 +2,9 @@
  * Main class of application
  */
 const express = require('express');
-const error_handler_service = require('./services/error_handler_service');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const error_handler_service = require('./services/error_handler_service');
 const database = require('./database');
 
 const auth_middleware = require("./controllers/middlewares/auth_middleware");
@@ -31,6 +31,7 @@ server.use(cors({
 server.use('/api/auth', auth_controller);
 server.use('/api/product', product_controller);
 server.use('/api/cart', [auth_middleware.verify_token], cart_controller);
+server.use("/api/image", express.static(process.env.DIR_UPLOAD, { setHeaders: function (res) { res.set('Content-Type', "image/jpeg") }}));
 
 server.use((error, req, res, next) => {
     console.log(error)
