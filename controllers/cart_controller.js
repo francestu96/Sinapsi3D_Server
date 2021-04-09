@@ -15,8 +15,8 @@ router.get("/:userId", async (req, res, next) => {
     });
 });
 
-router.post("/", async (req, res, next) => {
-    cart_service.cart_add(req.body.productId, req.body.quantity, (err, dres) => {
+router.post("/:userId", async (req, res, next) => {
+    cart_service.cart_add_update(req.params.userId, req.body.productId, req.body.quantity, (err, dres) => {
         if (err != null) {
             console.log(err)
             root_controller.req_fail(res)

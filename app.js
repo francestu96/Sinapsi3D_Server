@@ -3,6 +3,7 @@
  */
 const express = require('express');
 const cors = require('cors');
+var path = require('path');
 const dotenv = require('dotenv');
 const error_handler_service = require('./services/error_handler_service');
 const database = require('./database');
@@ -31,7 +32,8 @@ server.use(cors({
 server.use('/api/auth', auth_controller);
 server.use('/api/product', product_controller);
 server.use('/api/cart', [auth_middleware.verify_token], cart_controller);
-server.use("/api/image", express.static(process.env.DIR_UPLOAD, { setHeaders: function (res) { res.set('Content-Type', "image/jpeg") }}));
+server.use("/api/image/thumb", express.static(path.join(process.env.DIR_UPLOAD, "thumb"), { setHeaders: function (res) { res.set('Content-Type', "image/jpeg") }}));
+server.use("/api/image/original", express.static(path.join(process.env.DIR_UPLOAD, "original"), { setHeaders: function (res) { res.set('Content-Type', "image/jpeg") }}));
 
 server.use((error, req, res, next) => {
     console.log(error)

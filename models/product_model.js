@@ -18,6 +18,8 @@ const product_schema = mongoose.Schema({
       required: [true, "Please include at least one picture"]
     }
   ]
+}, {
+  timestamps: true
 });
 
 const product_model = mongoose.model("product", product_schema);

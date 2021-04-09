@@ -54,13 +54,7 @@ router.post("/", [auth_middleware.verify_token, upload_middleware.array('images'
         root_controller.req_fail_upload_img(res);
     }
     else {
-        if (!fs.existsSync(process.env.DIR_UPLOAD)){
-            try{
-                fs.mkdirSync(process.env.DIR_UPLOAD);
-            }catch (err){
-                root_controller.req_fail(res, err.message);
-            }
-        }
+        createUploadDirs();
 
         var image_names = [];
         for (var i = 0; i < req.files.length; i++){
@@ -79,7 +73,8 @@ router.post("/", [auth_middleware.verify_token, upload_middleware.array('images'
                 root_controller.req_fail(res, err.message);
             } else {
                 for (var i = 0; i < req.files.length; i++){
-                    await sharp(req.files[i].buffer).resize(300, 300).toFile(path.join(process.env.DIR_UPLOAD, image_names[i]));
+                    await sharp(req.files[i].buffer).toFile(path.join(process.env.DIR_UPLOAD, "original", image_names[i]));
+                    await sharp(req.files[i].buffer).resize({ fit: sharp.fit.contain, width: 300, height: 300 }).jpeg({ quality: 40 }).toFile(path.join(process.env.DIR_UPLOAD, "thumb", image_names[i]));
                 }
                 res.send(dres);
             }
@@ -87,5 +82,23 @@ router.post("/", [auth_middleware.verify_token, upload_middleware.array('images'
         });
     }
 });
+
+function createUploadDirs() {
+    if (!fs.existsSync(path.join(process.env.DIR_UPLOAD, "original"))){
+        try{
+            fs.mkdirSync(path.join(process.env.DIR_UPLOAD, "original"));
+        }catch (err){
+            root_controller.req_fail(res, err.message);
+        }
+    }
+
+    if (!fs.existsSync(path.join(process.env.DIR_UPLOAD, "thumb"))){
+        try{
+            fs.mkdirSync(path.join(process.env.DIR_UPLOAD, "thumb"));
+        }catch (err){
+            root_controller.req_fail(res, err.message);
+        }
+    }
+}
 
 module.exports = router;
