@@ -24,7 +24,7 @@ const cart_add_update = async (userId, productId, quantity, delegate) =>{
                 cart = await cart_model.findByIdAndUpdate(cart.id, cart, {new: true}).populate({ path: "products.product" });
             } 
             else{
-                cart.products.push({ quantity: quantity, product: productId });
+                cart.products.unshift({ quantity: quantity, product: productId });
                 cart = await cart_model.findByIdAndUpdate(cart.id, cart, {new: true}).populate({ path: "products.product" });
             }
         }
@@ -37,7 +37,7 @@ const cart_add_update = async (userId, productId, quantity, delegate) =>{
     }
 }
 
-const cart_delete = async (userId, productId, delegate) =>{
+const cart_remove = async (userId, productId, delegate) =>{
     try {
         var cart = await cart_model.findOne({ userId: userId }).populate({ path: "products.product" });
         if(!cart){
@@ -62,6 +62,19 @@ const cart_delete = async (userId, productId, delegate) =>{
     }
 }
 
+const cart_delete = async (userId, delegate) => {
+    try {
+        await cart_model.findOneAndDelete({ userId: userId });
+        
+        if (delegate != null)
+            delegate(null);
+
+    } catch (ex) {
+        delegate(ex);
+    }
+}
+
 exports.cart_get=cart_get;
 exports.cart_add_update=cart_add_update;
+exports.cart_remove=cart_remove;
 exports.cart_delete=cart_delete;

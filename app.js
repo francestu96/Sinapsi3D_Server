@@ -13,6 +13,7 @@ const auth_middleware = require("./controllers/middlewares/auth_middleware");
 const auth_controller = require('./controllers/auth_controller');
 const product_controller = require('./controllers/product_controller');
 const cart_controller = require('./controllers/cart_controller');
+const order_controller = require('./controllers/order_controller');
 
 
 dotenv.config();
@@ -32,6 +33,7 @@ server.use(cors({
 server.use('/api/auth', auth_controller);
 server.use('/api/product', product_controller);
 server.use('/api/cart', [auth_middleware.verify_token], cart_controller);
+server.use('/api/order', [auth_middleware.verify_token], order_controller);
 server.use("/api/image/thumb", express.static(path.join(process.env.DIR_UPLOAD, "thumb"), { setHeaders: function (res) { res.set('Content-Type', "image/jpeg") }}));
 server.use("/api/image/original", express.static(path.join(process.env.DIR_UPLOAD, "original"), { setHeaders: function (res) { res.set('Content-Type', "image/jpeg") }}));
 

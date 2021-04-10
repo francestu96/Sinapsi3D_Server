@@ -6,10 +6,10 @@ const router = express.Router();
 router.get("/:userId", async (req, res, next) => {
     cart_service.cart_get(req.params.userId, (err, dres) => {
         if (err != null) {
-            console.log(err)
-            root_controller.req_fail(res, err.message)
+            console.log(err);
+            root_controller.req_fail(res, err.message);
         } else {
-            res.send(dres)
+            res.send(dres);
         }
         next();
     });
@@ -18,22 +18,34 @@ router.get("/:userId", async (req, res, next) => {
 router.post("/:userId", async (req, res, next) => {
     cart_service.cart_add_update(req.params.userId, req.body.productId, req.body.quantity, (err, dres) => {
         if (err != null) {
-            console.log(err)
-            root_controller.req_fail(res)
+            console.log(err);
+            root_controller.req_fail(res);
         } else {
-            res.send(dres)
+            res.send(dres);
         }
         next();
     });
 });
 
 router.delete("/:userId/:productId", async (req, res, next) => {
-    cart_service.cart_delete(req.params.userId, req.params.productId, (err, dres) => {
+    cart_service.cart_remove(req.params.userId, req.params.productId, (err, dres) => {
+        if (err != null) {
+            console.log(err);
+            root_controller.req_fail(res);
+        } else {
+            res.send(dres);
+        }
+        next();
+    });
+});
+
+router.delete("/:userId", async (req, res, next) => {
+    cart_service.cart_delete(req.params.userId, (err) => {
         if (err != null) {
             console.log(err)
             root_controller.req_fail(res)
         } else {
-            res.send(dres)
+            res.send();
         }
         next();
     });
