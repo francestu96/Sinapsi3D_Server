@@ -74,7 +74,11 @@ router.post("/", [auth_middleware.verify_token, upload_middleware.array('images'
             } else {
                 for (var i = 0; i < req.files.length; i++){
                     await sharp(req.files[i].buffer).toFile(path.join(process.env.DIR_UPLOAD, "original", image_names[i]));
-                    await sharp(req.files[i].buffer).resize({ fit: sharp.fit.contain, width: 300, height: 300 }).jpeg({ quality: 40 }).toFile(path.join(process.env.DIR_UPLOAD, "thumb", image_names[i]));
+                    await sharp(req.files[i].buffer)
+                        .resize({ fit: sharp.fit.contain, width: 300, height: 300 })
+                        .background({r: 255, g: 255, b: 255, alpha: 1})
+                        .jpeg({ quality: 40 })
+                        .toFile(path.join(process.env.DIR_UPLOAD, "thumb", image_names[i]));
                 }
                 res.send(dres);
             }

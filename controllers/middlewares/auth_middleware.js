@@ -29,7 +29,7 @@ const is_admin = (req, res, next) => {
             return;
         }
         else{
-            res.status(403).send({ message: "Devi essere amministratore!" });
+            res.status(403).send({ message: "Unauthorized!" });
             return;
         }
     });

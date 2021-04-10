@@ -27,8 +27,8 @@ router.post("/:userId", async (req, res, next) => {
     });
 });
 
-router.delete("/", async (_, res, next) => {
-    cart_service.cart_delete((err, dres) => {
+router.delete("/:userId/:productId", async (req, res, next) => {
+    cart_service.cart_delete(req.params.userId, req.params.productId, (err, dres) => {
         if (err != null) {
             console.log(err)
             root_controller.req_fail(res)
