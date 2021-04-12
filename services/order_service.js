@@ -1,6 +1,18 @@
 const order_model = require("../models/order_model");
 
-const order_create = async (payload, delegate) =>{
+const get = async (payload, delegate) =>{
+    try {
+        let orders = await order_model.find(payload);
+
+        if (delegate != null)
+            delegate(null, orders);
+
+    } catch (ex) {
+        delegate(ex);
+    }
+}
+
+const create = async (payload, delegate) =>{
     try {
         let order = await order_model.create(payload);
 
@@ -12,4 +24,5 @@ const order_create = async (payload, delegate) =>{
     }
 }
 
-exports.order_create=order_create;
+exports.get=get;
+exports.create=create;

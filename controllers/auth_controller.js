@@ -9,7 +9,7 @@ const role_const = require("../models/consts/role_const");
 
 router.post("/signin", async (req, res, next) => {
     if (!req.body.password){
-        root_controller.req_unauth_403(res, { message: "Credenziali non valide" });
+        root_controller.req_unauth_403(res, "Credenziali non valide");
     }
     else{
         user_service.user_get_by_email(req.body.email, (err, user) => {
@@ -23,7 +23,7 @@ router.post("/signin", async (req, res, next) => {
                 );
                 
                 if (!passwordIsValid) {
-                    root_controller.req_unauth_403(res, { message: "Credenziali non valide" });
+                    root_controller.req_unauth_403(res, "Credenziali non valide");
                 }
                 else{
                     var access_token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);

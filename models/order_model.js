@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const order_schema = mongoose.Schema({
-    intent: {
-        type: String
-    },
+    user_id: { type: String },
+    intent: { type: String },
     payer: {
         name: { 
             given_name: { type: String },
@@ -10,7 +9,20 @@ const order_schema = mongoose.Schema({
          },
         email_address: { type: String },
         payer_id: { type: String },
-        birth_date: { type: String }
+        birth_date: { type: String },
+        address: {
+            country_code: { type: String },
+            address_line_1: { type: String },
+            address_line_2: { type: String },
+            admin_area_2: { type: String },
+            admin_area_1: { type: String },
+            postal_code: { type: String }
+        },
+        phone: {
+            phone_number: {
+                national_number: { type: String }
+            }
+        }
     },
     purchase_units: [{
         amount: { 
