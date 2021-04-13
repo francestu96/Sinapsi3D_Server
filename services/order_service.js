@@ -2,7 +2,7 @@ const order_model = require("../models/order_model");
 
 const get = async (payload, delegate) =>{
     try {
-        let orders = await order_model.find(payload);
+        let orders = await order_model.find(payload).populate("purchase_units.reference_id");
 
         if (delegate != null)
             delegate(null, orders);

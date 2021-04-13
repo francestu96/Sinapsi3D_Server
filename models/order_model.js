@@ -33,7 +33,10 @@ const order_schema = mongoose.Schema({
                 }
             }    
         },
-        reference_id: { type: String },
+        reference_id: { 
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "product" 
+        },
         payee: { 
             email_address: { type: String },
             merchant_id: { type: String }

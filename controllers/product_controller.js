@@ -6,12 +6,12 @@ var path = require('path');
 const router = express.Router();
 const upload_middleware = require('./middlewares/upload_middleware');
 const auth_middleware = require("./middlewares/auth_middleware");
-const resize_image = require('../helper/resize_image');
 const root_controller = require('./root_controller');
 const product_service = require('../services/product_service');
 
 router.get("/", async (req, res, next) => {
-    let filter = req.query.filter ? JSON.parse(Buffer.from(req.query.filter, 'base64')) : {}
+    let filter = req.query.filter ? { $or: [{ name: new RegExp(req.query.filter, 'i') }, { description: new RegExp(req.query.filter, 'i') }] } : {}
+    // let filter = req.query.filter ? { $or: [{$expr: { name: req.query.filter }}, {$expr: { description: req.query.filter }}] } : {}
 
     let sort = {};
     if (req.query.sort_field) {
@@ -77,7 +77,7 @@ router.post("/", [auth_middleware.verify_token, upload_middleware.array('images'
                     await sharp(req.files[i].buffer)
                         .resize({ fit: sharp.fit.contain, width: 300, height: 300 })
                         .background({r: 255, g: 255, b: 255, alpha: 1})
-                        .jpeg({ quality: 40 })
+                        .jpeg({ quality: 80 })
                         .toFile(path.join(process.env.DIR_UPLOAD, "thumb", image_names[i]));
                 }
                 res.send(dres);
