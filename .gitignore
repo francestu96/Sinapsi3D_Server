@@ -362,4 +362,4 @@ product_image/
 jestSetup.js
 # End of https://www.toptal.com/developers/gitignore/api/node,intellij,webstorm,windows,linux,macos
 
-assets/
+assets/product_images/
