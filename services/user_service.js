@@ -56,8 +56,19 @@ const user_delete = async (userId, delegate) =>{
     }
 }
 
+const user_update = async (user, delegate) =>{
+    try {
+        await user_model.findByIdAndUpdate(user.id, user);
+        if (delegate != null)
+            delegate();
+    } catch (ex) {
+        delegate(ex);
+    }
+}
+
 exports.user_get=user_get;
 exports.user_get_by_email=user_get_by_email;
 exports.user_list=user_list;
 exports.user_create=user_create;
 exports.user_delete=user_delete;
+exports.user_update=user_update;

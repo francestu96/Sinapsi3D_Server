@@ -1,5 +1,5 @@
-<!doctype html>
-<html ⚡4email data-css-strict>
+module.exports = `
+<html 4email data-css-strict>
 
 <head>
     <meta charset="utf-8">
@@ -273,8 +273,8 @@
             display: block;
         }
 
-        .es-menu amp-img,
-        .es-button amp-img {
+        .es-menu img,
+        .es-button img {
             vertical-align: middle;
         }
 
@@ -400,7 +400,7 @@
         .es-button-border {
             border-style: solid solid solid solid;
             border-color: #2CB543 #2CB543 #2CB543 #2CB543;
-            background: #6EC9F1;
+            background: #673ab7;
             border-width: 0px 0px 0px 0px;
             display: inline-block;
             border-radius: 30px;
@@ -410,10 +410,10 @@
         a.es-button,
         button.es-button {
             border-style: solid;
-            border-color: #6EC9F1;
+            border-color: #673ab7;
             border-width: 10px 20px 10px 20px;
             display: inline-block;
-            background: #6EC9F1;
+            background: #673ab7;
             border-radius: 30px;
             font-size: 18px;
             font-family: arial, "helvetica neue", helvetica, sans-serif;
@@ -543,15 +543,15 @@
                 text-align: left
             }
 
-            .es-m-txt-r amp-img {
+            .es-m-txt-r img {
                 float: right
             }
 
-            .es-m-txt-c amp-img {
+            .es-m-txt-c img {
                 margin: 0 auto
             }
 
-            .es-m-txt-l amp-img {
+            .es-m-txt-l img {
                 float: left
             }
 
@@ -835,21 +835,20 @@
                                 <table class="es-header-body" align="center" cellpadding="0" cellspacing="0" width="600"
                                     style="background-color: transparent">
                                     <tr>
-                                        <td class="es-p20 es-m-p0b" align="left">
+                                        <td style="padding-top: 20px;"class="es-m-p0b" align="left">
                                             <table cellpadding="0" cellspacing="0" width="100%">
                                                 <tr>
                                                     <td width="560" class="es-m-p0r" valign="top" align="center">
                                                         <table cellpadding="0" cellspacing="0" width="100%"
                                                             role="presentation">
                                                             <tr>
-                                                                <td align="center" style="font-size: 0px"><a
-                                                                        target="_blank" href="https://viewstripo.email">
-                                                                        <amp-img
-                                                                            src="https://pewtbf.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/4671614696634072.png"
+                                                                <td align="center" style="font-size: 0px">
+                                                                        <img
+                                                                            src="cid:sinapsi3d"
                                                                             alt="Logo" style="display: block"
-                                                                            width="100" title="Logo" height="75">
-                                                                        </amp-img>
-                                                                    </a></td>
+                                                                            width="100" title="Logo" height="80">
+                                                                        </img>
+                                                                    </td>
                                                             </tr>
                                                         </table>
                                                     </td>
@@ -871,7 +870,7 @@
                                                                         cellspacing="0" role="presentation">
                                                                         <tr>
                                                                             <td
-                                                                                style="border-bottom: 1px solid #6ec9f1;background: none;height: 1px;width: 100%;margin: 0px">
+                                                                                style="border-bottom: 1px solid #673ab7;background: none;height: 1px;width: 100%;margin: 0px">
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -879,31 +878,34 @@
                                                             </tr>
                                                             <tr>
                                                                 <td align="left" class="es-p20t es-p5b es-m-txt-l">
-                                                                    <h2 style="line-height: 120%">Good day! Check out
-                                                                        the changes to your plan.</h2>
+                                                                    <h2 style="line-height: 120%">
+                                                                        Buone notizie! Il tuo ordine è stato ricevuto
+                                                                    </h2>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td align="left" class="es-p10t es-p10b es-m-txt-l">
-                                                                    <p>Lorem ipsum dolor sit amet, consectetur
-                                                                        adipiscing elit, sed do eiusmod tempor
-                                                                        incididunt ut labore et dolore magna aliqua.
-                                                                        Morbi tristique senectus et netus et malesuada
-                                                                        fames ac. Vehicula ipsum a arcu cursus vitae
-                                                                        congue mauris.</p>
+                                                                    <p>
+                                                                        Abbiamo ricevuto il tuo ordine. Non appena sarà completato e spedito, 
+                                                                        riceverai il tracking del tuo pacco.
+                                                                        Ricordati che: 
+                                                                    </p>
                                                                     <ol>
-                                                                        <li>Convallis tellus id interdum velit laoreet
-                                                                            id donec ultrices.</li>
-                                                                        <li>Ullamcorper dignissim cras tincidunt
-                                                                            lobortis feugiat vivamus at augue.</li>
-                                                                        <li>Sed lectus vestibulum mattis ullamcorper
-                                                                            velit sed.&nbsp;</li>
+                                                                        <li>
+                                                                            Se il prodotto non è stato ancora prodotto, è possibile che l'ordine impieghi più di una settimana ad essere spedito
+                                                                        </li>
+                                                                        <li>
+                                                                            Più il prodotto è grande e più tempo ci vorrà per produrlo!
+                                                                        </li>
+                                                                        <li>
+                                                                            Puoi sempre contattare il nostro team con l'id dell'ordine per avere informazioni al riguardo! 
+                                                                        </li>
                                                                     </ol>
-                                                                    <p>Urna condimentum mattis pellentesque id nibh
-                                                                        tortor. Turpis in eu mi bibendum. Praesent
-                                                                        elementum facilisis leo vel fringilla est
-                                                                        ullamcorper eget. Interdum posuere lorem ipsum
-                                                                        dolor sit amet consectetur adipiscing.&nbsp;</p>
+                                                                    <p>
+                                                                        Grazie per la fiducia che avete riposto in noi. Non deluderemo le vostre aspettative!<br>
+                                                                        Con affetto,<br>
+                                                                        Il team di Sinapsi 3D
+                                                                    </p>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -924,7 +926,6 @@
                                     style="background-color: transparent">
                                     <tr>
                                         <td class="es-p20t es-p20r es-p20l" align="left">
-                                            <!--[if mso]><table width="560" cellpadding="0" cellspacing="0"><tr><td width="245" valign="top"><![endif]-->
                                             <table cellpadding="0" cellspacing="0" class="es-left" align="left">
                                                 <tr>
                                                     <td width="245" class="es-m-p20b" align="left">
@@ -932,25 +933,24 @@
                                                             role="presentation">
                                                             <tr>
                                                                 <td align="left" class="es-m-txt-c"
-                                                                    style="font-size: 0px"><a target="_blank"
-                                                                        href="https://viewstripo.email">
-                                                                        <amp-img
-                                                                            src="https://pewtbf.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/4671614696634072.png"
-                                                                            alt style="display: block" width="100"
-                                                                            height="75"></amp-img>
-                                                                    </a></td>
+                                                                    style="font-size: 0px">
+                                                                        <img
+                                                                            src="cid:sinapsi3d"
+                                                                            alt style="display: block" width="90"
+                                                                            height="70"></img>
+                                                                    </td>
                                                             </tr>
                                                             <tr>
                                                                 <td align="left" class="es-p10t es-p10b">
-                                                                    <p>We work with a passion of taking challenges and
-                                                                        creating new ones in advertising sector.</p>
+                                                                    <p>
+                                                                        Lavoriamo per garantire ai nostri clienti i prodotti della migliore qualità!
+                                                                    </p>
                                                                 </td>
                                                             </tr>
                                                         </table>
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <!--[if mso]></td><td width="20"></td><td width="295" valign="top"><![endif]-->
                                             <table cellpadding="0" cellspacing="0" class="es-right" align="right">
                                                 <tr>
                                                     <td width="295" align="left">
@@ -969,18 +969,16 @@
                                                                             <td align="left" valign="top" width="100%"
                                                                                 class="es-p10t es-p10b es-p5r es-p5l"
                                                                                 id="esd-menu-id-0"
-                                                                                style="padding-bottom: 7px"><a
-                                                                                    target="_blank"
-                                                                                    href="https://viewstripo.email">
-                                                                                    <amp-img
-                                                                                        src="https://pewtbf.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/39781614763048410.png"
-                                                                                        alt="30 Commercial Road Fratton, Australia"
-                                                                                        title="30 Commercial Road Fratton, Australia"
+                                                                                style="padding-bottom: 7px">
+                                                                                    <img
+                                                                                        src="cid:place"
+                                                                                        alt="Genova, Italia"
+                                                                                        title="Genova, Italia"
                                                                                         width="20" height="20"
                                                                                         style="margin-right:5px">
-                                                                                    </amp-img>30 Commercial Road
-                                                                                    Fratton, Australia
-                                                                                </a></td>
+                                                                                    </img>
+                                                                                    Genova, Italia
+                                                                                </td>
                                                                         </tr>
                                                                     </table>
                                                                 </td>
@@ -994,16 +992,15 @@
                                                                                 class="es-p10t es-p10b es-p5r es-p5l"
                                                                                 id="esd-menu-id-0"
                                                                                 style="padding-top: 7px;padding-bottom: 7px">
-                                                                                <a target="_blank" href="tel:">
-                                                                                    <amp-img
-                                                                                        src="https://pewtbf.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/95711614763048218.png"
-                                                                                        alt="1-888-452-1505"
-                                                                                        title="1-888-452-1505"
+                                                                                    <img
+                                                                                        src="cid:phone"
+                                                                                        alt="+39 3382299192"
+                                                                                        title="+39 3382299192"
                                                                                         width="20"
                                                                                         style="margin-right:5px"
-                                                                                        height="20"></amp-img>
-                                                                                    1-888-452-1505
-                                                                                </a></td>
+                                                                                        height="20"></img>
+                                                                                    +39 3382299192
+                                                                                </td>
                                                                         </tr>
                                                                     </table>
                                                                 </td>
@@ -1016,18 +1013,16 @@
                                                                             <td align="left" valign="top" width="100%"
                                                                                 class="es-p10t es-p10b es-p5r es-p5l"
                                                                                 id="esd-menu-id-0"
-                                                                                style="padding-top: 7px"><a
-                                                                                    target="_blank"
-                                                                                    href="https://viewstripo.email">
-                                                                                    <amp-img
-                                                                                        src="https://pewtbf.stripocdn.email/content/guids/CABINET_3b670d78779801705eef224a1b9fbd70/images/97961614763048410.png"
-                                                                                        alt="Mon - Sat: 8am - 5pm, Sunday: CLOSED"
-                                                                                        title="Mon - Sat: 8am - 5pm, Sunday: CLOSED"
+                                                                                style="padding-top: 7px">
+                                                                                    <img
+                                                                                        src="cid:email"
+                                                                                        alt="info@sinapsi3d.it"
+                                                                                        title="info@sinapsi3d.it"
                                                                                         width="20" height="20"
                                                                                         style="margin-right:5px">
-                                                                                    </amp-img>Mon - Sat: 8am - 5pm,
-                                                                                    Sunday: CLOSED
-                                                                                </a></td>
+                                                                                    </img>
+                                                                                    info@sinapsi3d.it
+                                                                                </td>
                                                                         </tr>
                                                                     </table>
                                                                 </td>
@@ -1036,7 +1031,6 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <!--[if mso]></td></tr></table><![endif]-->
                                         </td>
                                     </tr>
                                     <tr>
@@ -1052,37 +1046,30 @@
                                                                         class="es-table-not-adapt es-social"
                                                                         role="presentation">
                                                                         <tr>
-                                                                            <td align="center" valign="top"
-                                                                                class="es-p25r"><a target="_blank"
-                                                                                    href="https://viewstripo.email">
-                                                                                    <amp-img title="Facebook"
-                                                                                        src="https://pewtbf.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png"
-                                                                                        alt="Fb" width="32" height="32">
-                                                                                    </amp-img>
-                                                                                </a></td>
-                                                                            <td align="center" valign="top"
-                                                                                class="es-p25r"><a target="_blank"
-                                                                                    href="https://viewstripo.email">
-                                                                                    <amp-img title="Twitter"
-                                                                                        src="https://pewtbf.stripocdn.email/content/assets/img/social-icons/logo-black/twitter-logo-black.png"
-                                                                                        alt="Tw" width="32" height="32">
-                                                                                    </amp-img>
-                                                                                </a></td>
-                                                                            <td align="center" valign="top"
-                                                                                class="es-p25r"><a target="_blank"
-                                                                                    href="https://viewstripo.email">
-                                                                                    <amp-img title="Instagram"
-                                                                                        src="https://pewtbf.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png"
-                                                                                        alt="Inst" width="32"
-                                                                                        height="32"></amp-img>
-                                                                                </a></td>
                                                                             <td align="center" valign="top"><a
+                                                                                class="es-p25r"
                                                                                     target="_blank"
-                                                                                    href="https://viewstripo.email">
-                                                                                    <amp-img title="Youtube"
+                                                                                    href="https://www.youtube.com/channel/UCkIlnm3o_d7PmxoOMnYXk7w">
+                                                                                    <img style="margin: 10px" title="Youtube"
                                                                                         src="https://pewtbf.stripocdn.email/content/assets/img/social-icons/logo-black/youtube-logo-black.png"
                                                                                         alt="Yt" width="32" height="32">
-                                                                                    </amp-img>
+                                                                                    </img>
+                                                                                </a></td>
+                                                                            <td align="center" valign="top"
+                                                                                class="es-p25r"><a target="_blank"
+                                                                                    href="https://www.instagram.com/sinapsi3d/?hl=it">
+                                                                                    <img style="margin: 10px" title="Instagram"
+                                                                                        src="https://pewtbf.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png"
+                                                                                        alt="Inst" width="32"
+                                                                                        height="32"></img>
+                                                                                </a></td>
+                                                                            <td align="center" valign="top"
+                                                                                class="es-p25r"><a target="_blank"
+                                                                                    href="https://www.facebook.com/Sinapsi3d/">
+                                                                                    <img style="margin: 10px" title="Facebook"
+                                                                                        src="https://pewtbf.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png"
+                                                                                        alt="Fb" width="32" height="32">
+                                                                                    </img>
                                                                                 </a></td>
                                                                         </tr>
                                                                     </table>
@@ -1105,3 +1092,4 @@
 </body>
 
 </html>
+`

@@ -1,6 +1,7 @@
 const express = require('express');
 const order_service = require('../services/order_service');
 const root_controller = require('./root_controller');
+const mail_service = require('../services/mail_service');
 const router = express.Router();
 
 router.get("/:userId", async (req, res, next) => {
@@ -20,10 +21,18 @@ router.post("/", async (req, res, next) => {
         if (err != null) {
             console.log(err)
             root_controller.req_fail(res)
+            next();
         } else {
-            res.send(dres)
+            mail_service.send_order(req.body.payer.email_address)
+                .then(_ => {
+                    res.send(dres);
+                    next();
+                })
+                .catch(err => {
+                    root_controller.req_fail(res, err.message);
+                    next();
+                });
         }
-        next();
     });
 });
 
