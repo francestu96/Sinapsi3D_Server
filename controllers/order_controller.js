@@ -4,8 +4,8 @@ const root_controller = require('./root_controller');
 const mail_service = require('../services/mail_service');
 const router = express.Router();
 
-router.get("/:userId", async (req, res, next) => {
-    order_service.get({ user_id: req.params.userId }, (err, dres) => {
+router.get("/", async (req, res, next) => {
+    order_service.get({ user_id: req.userId }, (err, dres) => {
         if (err != null) {
             console.log(err)
             root_controller.req_fail(res)

@@ -3,8 +3,8 @@ const cart_service = require('../services/cart_service');
 const root_controller = require('./root_controller');
 const router = express.Router();
 
-router.get("/:userId", async (req, res, next) => {
-    cart_service.cart_get(req.params.userId, (err, dres) => {
+router.get("/", async (req, res, next) => {
+    cart_service.cart_get(req.userId, (err, dres) => {
         if (err != null) {
             console.log(err);
             root_controller.req_fail(res, err.message);
@@ -15,8 +15,8 @@ router.get("/:userId", async (req, res, next) => {
     });
 });
 
-router.post("/:userId", async (req, res, next) => {
-    cart_service.cart_add_update(req.params.userId, req.body.productId, req.body.quantity, (err, dres) => {
+router.post("/", async (req, res, next) => {
+    cart_service.cart_add_update(req.userId, req.body.productId, req.body.quantity, (err, dres) => {
         if (err != null) {
             console.log(err);
             root_controller.req_fail(res);
@@ -27,8 +27,8 @@ router.post("/:userId", async (req, res, next) => {
     });
 });
 
-router.delete("/:userId/:productId", async (req, res, next) => {
-    cart_service.cart_remove(req.params.userId, req.params.productId, (err, dres) => {
+router.delete("/:productId", async (req, res, next) => {
+    cart_service.cart_remove(req.userId, req.params.productId, (err, dres) => {
         if (err != null) {
             console.log(err);
             root_controller.req_fail(res);
@@ -39,8 +39,8 @@ router.delete("/:userId/:productId", async (req, res, next) => {
     });
 });
 
-router.delete("/:userId", async (req, res, next) => {
-    cart_service.cart_delete(req.params.userId, (err) => {
+router.delete("/", async (req, res, next) => {
+    cart_service.cart_delete(req.userId, (err) => {
         if (err != null) {
             console.log(err)
             root_controller.req_fail(res)

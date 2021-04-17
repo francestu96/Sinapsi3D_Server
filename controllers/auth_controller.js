@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth_middleware = require("./middlewares/auth_middleware");
 const root_controller = require('./root_controller');
 const user_service = require('../services/user_service');
 const mail_service = require('../services/mail_service');
@@ -87,7 +88,7 @@ router.post("/signup", async (req, res, next) => {
     }
 });
 
-router.post("/change_password", async (req, res, next) => {
+router.post("/change_password", [auth_middleware.verify_token], async (req, res, next) => {
     const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;    
 
     if (!req.body.oldPassword){
@@ -101,7 +102,7 @@ router.post("/change_password", async (req, res, next) => {
             root_controller.req_fail(res, "Password non valida");
         }
         else{
-            user_service.user_get(req.body.userId, (err, user) => {
+            user_service.user_get(req.userId, (err, user) => {
                 if (err != null) {
                     root_controller.req_fail(res, err.message);
                     next();
