@@ -44,13 +44,13 @@ jobs:
             cd ${{ secrets.DEPLOY_DIR }}
             rm .env
             echo DB_CONNECTION=${{ secrets.DB_CONNECTION }} > .env
-            echo PORT=${{ secrets.PORT }} > .env
-            echo DIR_UPLOAD=${{ secrets.DIR_UPLOAD }} > .env
-            echo JWT_SECRET=${{ secrets.JWT_SECRET }} > .env
+            echo PORT=${{ secrets.PORT }} >> .env
+            echo DIR_UPLOAD=${{ secrets.DIR_UPLOAD }} >> .env
+            echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
 
-            echo EMAIL_HOST=${{ secrets.EMAIL_HOST }} > .env
-            echo EMAIL_PORT=${{ secrets.EMAIL_PORT }} > .env
-            echo EMAIL_USER=${{ secrets.EMAIL_USER }} > .env
-            echo EMAIL_PASS=${{ secrets.EMAIL_PASS }} > .env
-            echo EMAIL_FROM=${{ secrets.EMAIL_FROM }} > .env
+            echo EMAIL_HOST=${{ secrets.EMAIL_HOST }} >> .env
+            echo EMAIL_PORT=${{ secrets.EMAIL_PORT }} >> .env
+            echo EMAIL_USER=${{ secrets.EMAIL_USER }} >> .env
+            echo EMAIL_PASS=${{ secrets.EMAIL_PASS }} >> .env
+            echo EMAIL_FROM=${{ secrets.EMAIL_FROM }} >> .env
             npm install
