@@ -994,12 +994,12 @@ module.exports = `
                                                                                 style="padding-top: 7px;padding-bottom: 7px">
                                                                                     <img
                                                                                         src="cid:phone"
-                                                                                        alt="+39 3382299192"
-                                                                                        title="+39 3382299192"
+                                                                                        alt="+39 3477944844"
+                                                                                        title="+39 3477944844"
                                                                                         width="20"
                                                                                         style="margin-right:5px"
                                                                                         height="20"></img>
-                                                                                    +39 3382299192
+                                                                                    +39 3477944844
                                                                                 </td>
                                                                         </tr>
                                                                     </table>
@@ -1016,12 +1016,12 @@ module.exports = `
                                                                                 style="padding-top: 7px">
                                                                                     <img
                                                                                         src="cid:email"
-                                                                                        alt="info@sinapsi3d.it"
-                                                                                        title="info@sinapsi3d.it"
+                                                                                        alt="sinapsi3d@outlook.it"
+                                                                                        title="sinapsi3d@outlook.it"
                                                                                         width="20" height="20"
                                                                                         style="margin-right:5px">
                                                                                     </img>
-                                                                                    info@sinapsi3d.it
+                                                                                    sinapsi3d@outlook.it
                                                                                 </td>
                                                                         </tr>
                                                                     </table>

@@ -1,4 +1,4 @@
-module.exports = (password) => `
+module.exports = (nome) => `
 <html 4email data-css-strict>
 
 <head>
@@ -879,21 +879,22 @@ module.exports = (password) => `
                                                             <tr>
                                                                 <td align="left" class="es-p20t es-p5b es-m-txt-l">
                                                                     <h2 style="line-height: 120%">
-                                                                        Hai richiesto una nuova password
+                                                                        Ciao <b>${nome}</b>!
                                                                     </h2>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td align="left" class="es-p10t es-p10b es-m-txt-l">
-                                                                    <p>
-                                                                        La tua password è stata modificata come richiesto. Ecco quella nuova:
-                                                                    </p>
-                                                                    <h2 style="margin:30px">${password}</h2>
-                                                                    <p>
-                                                                        Non dimeticare di salvarla o di cambiarla nelle impostazione del tuo account!<br><br>
-                                                                        Con affetto,<br>
-                                                                        Il team di Sinapsi 3D<br>
-                                                                    </p>
+                                                                <p>
+                                                                    Benvenuto in Sinapsi 3D, la tua registrazione è avvenuta con successo!
+                                                                </p>
+                                                                <p>
+                                                                    Siamo lieti di conoscerti! Non dimenticare di seguirci sui nostri social per avere
+                                                                    aggioramenti continui sui nostri lavori e prodotti. Per qualsiasi informazione non esitare 
+                                                                    a contattarci!<br><br>
+                                                                    Con affetto,<br>
+                                                                    Il team di Sinapsi 3D<br>
+                                                                </p>
                                                                 </td>
                                                             </tr>
                                                         </table>

@@ -74,15 +74,22 @@ router.post("/signup", async (req, res, next) => {
                         root_controller.req_fail(res, err.message);
                     }
                 } else {
-                    var access_token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+                    mail_service.send_welcome(user.name, user.email)
+                        .then(_ => {
+                            var access_token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
 
-                    res.send({
-                        token_type:"Bearer",
-                        access_token: access_token,
-                        id_token: jwt.sign({ id: user.id, name: user.name, email: user.email, roles: user.roles }, process.env.JWT_SECRET)
-                    });
+                            res.send({
+                                token_type:"Bearer",
+                                access_token: access_token,
+                                id_token: jwt.sign({ id: user.id, name: user.name, email: user.email, roles: user.roles }, process.env.JWT_SECRET)
+                            });
+                            next();
+                        })
+                        .catch(err => {
+                            root_controller.req_fail(res, err.message);
+                            next();
+                        });                    
                 }
-                next();
             });
         }
     }
