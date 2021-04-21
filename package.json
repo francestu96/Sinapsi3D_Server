@@ -1,5 +1,5 @@
 {
-  "name": "CapstoneServerSide",
+  "name": "Sinapsi3D",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alireza-87/CapstoneServerSide.git"
+    "url": "git+https://github.com/francestu96/Sinapsi3D_Server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alireza-87/CapstoneServerSide/issues"
+    "url": "https://github.com/francestu96/Sinapsi3D_Server/issues"
   },
-  "homepage": "https://github.com/alireza-87/CapstoneServerSide#readme",
+  "homepage": "https://github.com/francestu96/Sinapsi3D_Server#readme",
   "dependencies": {
     "@ethereumjs/tx": "^3.0.2",
     "D": "^1.0.0",
