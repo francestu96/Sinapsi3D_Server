@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           script: |
             cd ${{ secrets.DEPLOY_DIR }}
-            rm .env
+            rm -f .env
             echo DB_CONNECTION=${{ secrets.DB_CONNECTION }} > .env
             echo PORT=${{ secrets.PORT }} >> .env
             echo DIR_UPLOAD=${{ secrets.DIR_UPLOAD }} >> .env
