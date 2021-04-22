@@ -28,10 +28,10 @@ router.get("/", async (req, res, next) => {
 
     product_service.product_list(filter, sort, page, (err, dres) => {
         if (err != null) {
-            console.log(err)
-            root_controller.req_fail(res, err.message)
+            console.log(err);
+            root_controller.req_fail(res, err.message);
         } else {
-            res.send(dres)
+            res.send(dres);
         }
         next();
     });
@@ -41,16 +41,16 @@ router.get("/:productId", async (req, res, next) => {
     product_service.product_get(req.params.productId, (err, product) => {
         if (err != null) {
             console.log(err)
-            root_controller.req_fail(res, err.message)
+            root_controller.req_fail(res, err.message);
         } else {
-            res.send(product)
+            res.send(product);
         }
         next();
     });
 });
 
 router.post("/", [auth_middleware.verify_token, auth_middleware.is_admin, upload_middleware.array('images', 5)], async (req, res, next) => {
-    if (!req.files) {
+    if (!req.files || !req.files.length > 0) {
         root_controller.req_fail_upload_img(res);
     }
     else {
@@ -84,6 +84,31 @@ router.post("/", [auth_middleware.verify_token, auth_middleware.is_admin, upload
             next();
         });
     }
+});
+
+router.delete("/:productId", [auth_middleware.verify_token, auth_middleware.is_admin], async (req, res, next) => {
+    product_service.product_get(req.params.productId, (err, product) => {
+        if (err != null) {
+            console.log(err);
+            root_controller.req_fail(res, err.message);
+            next();
+        }
+        else {
+            product.images.forEach(filename => {
+                fs.unlinkSync(path.join(process.env.DIR_UPLOAD, "thumb", filename));
+                fs.unlinkSync(path.join(process.env.DIR_UPLOAD, "original", filename));
+            });
+            product_service.product_remove(req.params.productId, (err) => {
+                if (err != null) {
+                    console.log(err)
+                    root_controller.req_fail(res, err.message)
+                } else {
+                    res.send();
+                }
+                next();
+            });
+        }
+    });
 });
 
 function createUploadDirs() {

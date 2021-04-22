@@ -36,10 +36,10 @@ const product_create = async (payload, delegate) =>{
 
 const product_remove = async (productId, delegate) =>{
     try {
-        let product = await product_model.findByIdAndRemove(productId);
+        await product_model.findByIdAndRemove(productId);
 
         if (delegate != null)
-            delegate(null, product);
+            delegate(null);
 
     } catch (ex) {
         delegate(ex);
