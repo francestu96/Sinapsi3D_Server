@@ -1,8 +1,9 @@
 const cart_model = require("../models/cart_model");
+const product_model = require("../models/product_model");
 
 const cart_get = async (userId, delegate) =>{
     try {
-        let cart = await cart_model.findOne({ userId: userId }).populate({ path: "products.product" });
+        let cart = await cart_model.findOne({ userId: userId }).populate("products.product");
         if (delegate != null)
             delegate(null, cart);
 
@@ -13,9 +14,14 @@ const cart_get = async (userId, delegate) =>{
 
 const cart_add_update = async (userId, productId, quantity, delegate) =>{
     try {
+        let product = await product_model.findById(productId);
+        if(!product){
+            throw "product not found";
+        }
+
         let cart = await cart_model.findOne({ userId: userId });
         if(!cart){
-            cart = await cart_model.create({ userId: userId, products: [ { quantity: quantity, product: productId } ] });
+            cart = await cart_model.create({ userId: userId, products: [ { quantity: quantity, product: product } ] });
         }
         else{
             const index = cart.products.map(x => x.product._id).indexOf(productId);
