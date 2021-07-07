@@ -54,7 +54,7 @@ router.post("/", [auth_middleware.verify_token, auth_middleware.is_admin, upload
         root_controller.req_fail_upload_img(res);
     }
     else {
-        createUploadDirs();
+        createUploadDirs(res);
 
         var image_names = [];
         for (var i = 0; i < req.files.length; i++){
@@ -94,10 +94,6 @@ router.delete("/:productId", [auth_middleware.verify_token, auth_middleware.is_a
             next();
         }
         else {
-            product.images.forEach(filename => {
-                fs.unlinkSync(path.join(process.env.DIR_UPLOAD, "thumb", filename));
-                fs.unlinkSync(path.join(process.env.DIR_UPLOAD, "original", filename));
-            });
             product_service.product_remove(req.params.productId, (err) => {
                 if (err != null) {
                     console.log(err)
@@ -111,10 +107,10 @@ router.delete("/:productId", [auth_middleware.verify_token, auth_middleware.is_a
     });
 });
 
-function createUploadDirs() {
+function createUploadDirs(res) {
     if (!fs.existsSync(path.join(process.env.DIR_UPLOAD, "original"))){
         try{
-            fs.mkdirSync(path.join(process.env.DIR_UPLOAD, "original"));
+            fs.mkdirSync(path.join(process.env.DIR_UPLOAD, "original"), { recursive: true });
         }catch (err){
             root_controller.req_fail(res, err.message);
         }
@@ -122,7 +118,7 @@ function createUploadDirs() {
 
     if (!fs.existsSync(path.join(process.env.DIR_UPLOAD, "thumb"))){
         try{
-            fs.mkdirSync(path.join(process.env.DIR_UPLOAD, "thumb"));
+            fs.mkdirSync(path.join(process.env.DIR_UPLOAD, "thumb"), { recursive: true });
         }catch (err){
             root_controller.req_fail(res, err.message);
         }

@@ -994,12 +994,12 @@ module.exports = `
                                                                                 style="padding-top: 7px;padding-bottom: 7px">
                                                                                     <img
                                                                                         src="cid:phone"
-                                                                                        alt="+39 3477944844"
-                                                                                        title="+39 3477944844"
+                                                                                        alt="+1 816-641-7654"
+                                                                                        title="+1 816-641-7654"
                                                                                         width="20"
                                                                                         style="margin-right:5px"
                                                                                         height="20"></img>
-                                                                                    +39 3477944844
+                                                                                    +1 816-641-7654
                                                                                 </td>
                                                                         </tr>
                                                                     </table>

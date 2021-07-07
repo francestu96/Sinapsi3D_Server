@@ -2,17 +2,26 @@ const express = require('express');
 const order_service = require('../services/order_service');
 const root_controller = require('./root_controller');
 const mail_service = require('../services/mail_service');
+const user_service = require('../services/user_service');
 const router = express.Router();
 
 router.get("/", async (req, res, next) => {
-    order_service.get({ user_id: req.userId }, (err, dres) => {
+    user_service.user_get(req.userId, (err, user) => {
         if (err != null) {
-            console.log(err)
-            root_controller.req_fail(res)
+            root_controller.req_fail(res, err.message);
+            next();
         } else {
-            res.send(dres)
+            var filter = user.roles.includes("admin") ? {} : { user_id: req.userId }
+            order_service.get(filter, (err, dres) => {
+                if (err != null) {
+                    console.log(err);
+                    root_controller.req_fail(res);
+                } else {
+                    res.send(dres);
+                }
+                next();
+            });
         }
-        next();
     });
 });
 

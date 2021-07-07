@@ -1,0 +1,56 @@
+apt update 
+apt -y install build-essential apt-transport-https lsb-release ca-certificates
+curl -sL https://deb.nodesource.com/setup_10.x | bash -
+wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+apt update 
+apt install -y nodejs mongodb-org nginx 
+npm install pm2@latest -g
+systemctl enable mongod
+systemctl start mongod
+
+echo "db.createUser({user: 'sinapsi3d', pwd: 'VQyGvrHaa8joJG5eUajA2', roles: [{role: 'readWrite', db: 'Sinapsi3D'}]})" | mongo Sinapsi3D
+
+mkdir /etc/sinapsi3d
+chown -R ubuntu:ubuntu /etc/sinapsi3d /var/www
+
+echo "server {
+  listen 80 default_server;
+  listen [::]:80 default_server;
+
+  root /var/www/sinapsi3d;
+
+  index index.html;
+
+  server_name sinapsi3d;
+
+  location / {
+    try_files $uri $uri/ /index.html;
+  }
+
+  location /api {
+    proxy_pass http://localhost:3000;
+  }
+}" > /etc/nginx/sites-enabled/default
+
+echo "storage:
+  dbPath: /var/lib/mongodb
+  journal:
+    enabled: true
+
+systemLog:
+  destination: file
+  logAppend: true
+  path: /var/log/mongodb/mongod.log
+
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+
+processManagement:
+  timeZoneInfo: /usr/share/zoneinfo
+
+security:
+  authorization: 'enabled'" > /etc/mongod.conf
+
+reboot
