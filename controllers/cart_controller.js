@@ -6,7 +6,6 @@ const router = express.Router();
 router.get("/", async (req, res, next) => {
     cart_service.cart_get(req.userId, (err, dres) => {
         if (err != null) {
-            console.log(err);
             root_controller.req_fail(res, err.message);
         } else {
             res.send(dres);
@@ -18,8 +17,7 @@ router.get("/", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
     cart_service.cart_add_update(req.userId, req.body.productId, req.body.quantity, (err, dres) => {
         if (err != null) {
-            console.log(err);
-            root_controller.req_fail(res);
+            root_controller.req_fail(res, err.message);
         } else {
             res.send(dres);
         }
@@ -30,8 +28,7 @@ router.post("/", async (req, res, next) => {
 router.delete("/:productId", async (req, res, next) => {
     cart_service.cart_remove(req.userId, req.params.productId, (err, dres) => {
         if (err != null) {
-            console.log(err);
-            root_controller.req_fail(res);
+            root_controller.req_fail(res, err.message);
         } else {
             res.send(dres);
         }
@@ -42,8 +39,7 @@ router.delete("/:productId", async (req, res, next) => {
 router.delete("/", async (req, res, next) => {
     cart_service.cart_delete(req.userId, (err) => {
         if (err != null) {
-            console.log(err)
-            root_controller.req_fail(res)
+            root_controller.req_fail(res, err.message);
         } else {
             res.send();
         }

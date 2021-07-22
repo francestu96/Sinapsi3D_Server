@@ -14,7 +14,6 @@ router.get("/", async (req, res, next) => {
             var filter = user.roles.includes("admin") ? {} : { user_id: req.userId }
             order_service.get(filter, (err, dres) => {
                 if (err != null) {
-                    console.log(err);
                     root_controller.req_fail(res);
                 } else {
                     res.send(dres);
@@ -28,8 +27,7 @@ router.get("/", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
     order_service.create(req.body, (err, dres) => {
         if (err != null) {
-            console.log(err)
-            root_controller.req_fail(res)
+            root_controller.req_fail(res);
             next();
         } else {
             mail_service.send_order(req.body.payer.email_address)

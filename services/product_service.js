@@ -6,7 +6,8 @@ const product_list = async (filter, sort, page, delegate) =>{
         if (delegate != null)
             delegate(null, products)
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "PRODUCT.GENERIC_ERROR"});
     }
 }
 
@@ -14,11 +15,12 @@ const product_get = async (productId, delegate) =>{
     try {
         let product = await product_model.findById(productId);
         if(!product)
-            delegate({ message: "Product not found"});
+            delegate({ message: "PRODUCT.NOT_FOUND"});
         else if (delegate != null)
             delegate(null, product)
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "PRODUCT.GENERIC_ERROR"});
     }
 }
 
@@ -30,7 +32,8 @@ const product_create = async (payload, delegate) =>{
             delegate(null, product);
 
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "PRODUCT.GENERIC_ERROR"});
     }
 }
 
@@ -42,7 +45,8 @@ const product_remove = async (productId, delegate) =>{
             delegate(null);
 
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "PRODUCT.GENERIC_ERROR"});
     }
 }
 

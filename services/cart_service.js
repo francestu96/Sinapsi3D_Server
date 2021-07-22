@@ -8,7 +8,8 @@ const cart_get = async (userId, delegate) =>{
             delegate(null, cart);
 
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "CART.GENERIC_ERROR"});
     }
 }
 
@@ -16,7 +17,8 @@ const cart_add_update = async (userId, productId, quantity, delegate) =>{
     try {
         let product = await product_model.findById(productId);
         if(!product){
-            throw "product not found";
+            delegate({ message: "PRODUCT.NOT_FOUND"});
+            return;
         }
 
         let cart = await cart_model.findOne({ userId: userId });
@@ -39,7 +41,8 @@ const cart_add_update = async (userId, productId, quantity, delegate) =>{
             delegate(null, cart);
 
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "CART.GENERIC_ERROR"});
     }
 }
 
@@ -47,7 +50,8 @@ const cart_remove = async (userId, productId, delegate) =>{
     try {
         var cart = await cart_model.findOne({ userId: userId }).populate({ path: "products.product" });
         if(!cart){
-            throw { message: "Carrello non trovato" };
+            delegate({ message: "CART.NOT_FOUND"});
+            return;
         }
         else{
             const index = cart.products.map(x => x.product._id).indexOf(productId);
@@ -56,7 +60,8 @@ const cart_remove = async (userId, productId, delegate) =>{
                 cart = await cart_model.findByIdAndUpdate(cart.id, cart, {new: true});
             } 
             else{
-                throw { message: "Prodotto non trovato" };
+                delegate({ message: "PRODUCT.NOT_FOUND"});
+                return;
             }
         }
 
@@ -64,7 +69,8 @@ const cart_remove = async (userId, productId, delegate) =>{
             delegate(null, cart);
 
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "CART.GENERIC_ERROR"});
     }
 }
 
@@ -76,7 +82,8 @@ const cart_delete = async (userId, delegate) => {
             delegate(null);
 
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "CART.GENERIC_ERROR"});
     }
 }
 

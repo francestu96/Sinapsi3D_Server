@@ -1,15 +1,15 @@
 apt update 
 apt -y install build-essential apt-transport-https lsb-release ca-certificates
-curl -sL https://deb.nodesource.com/setup_10.x | bash -
+curl -sL https://deb.nodesource.com/setup_14.x | bash -
 wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | apt-key add -
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list
 apt update 
-apt install -y nodejs mongodb-org nginx 
+apt install -y nodejs npm mongodb-org nginx 
 npm install pm2@latest -g
-systemctl enable mongod
-systemctl start mongod
 
+systemctl start mongod
 echo "db.createUser({user: 'sinapsi3d', pwd: 'VQyGvrHaa8joJG5eUajA2', roles: [{role: 'readWrite', db: 'Sinapsi3D'}]})" | mongo Sinapsi3D
+systemctl enable mongod
 
 mkdir /etc/sinapsi3d
 chown -R ubuntu:ubuntu /etc/sinapsi3d /var/www

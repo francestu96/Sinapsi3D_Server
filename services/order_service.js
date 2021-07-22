@@ -8,7 +8,8 @@ const get = async (payload, delegate) =>{
             delegate(null, orders);
 
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "PRODUCT.GENERIC_ERROR"});
     }
 }
 
@@ -20,7 +21,8 @@ const create = async (payload, delegate) =>{
             delegate(null, order);
 
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "PRODUCT.GENERIC_ERROR"});
     }
 }
 

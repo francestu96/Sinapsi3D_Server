@@ -4,11 +4,12 @@ const user_get = async (userId, delegate) =>{
     try {
         let user = await user_model.findById(userId);
         if(!user)
-            delegate({ message: "User not found"});
+            delegate({ message: "FORM.USER_NOT_FOUND"});
         else if (delegate != null)
             delegate(null, user);
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "FORM.GENERIC_ERROR"});
     }
 }
 
@@ -16,11 +17,12 @@ const user_get_by_email = async (email, delegate) =>{
     try {
         let user = await user_model.findOne({ email: email});
         if(!user)
-            delegate({ message: "Credenziali non valide"});
+            delegate({ message: "FORM.INVALID_CREDENTIALS"});
         else if (delegate != null)
             delegate(null, user);
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "FORM.GENERIC_ERROR"});
     }
 }
 
@@ -30,7 +32,8 @@ const user_list = async (filter, delegate) =>{
         if (delegate != null)
             delegate(null, users);
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "FORM.GENERIC_ERROR"});
     }
 }
 
@@ -42,7 +45,12 @@ const user_create = async (payload, delegate) =>{
             delegate(null, user);
 
     } catch (ex) {
-        delegate(ex);
+        if(ex.code === 11000){
+            delegate({ message: "FORM.ALREADY_USED_EMAIL"});
+            return;
+        }
+        console.log(ex.message);
+        delegate({ message: "FORM.GENERIC_ERROR"});
     }
 }
 
@@ -52,7 +60,8 @@ const user_delete = async (userId, delegate) =>{
         if (delegate != null)
             delegate();
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "FORM.GENERIC_ERROR"});
     }
 }
 
@@ -62,7 +71,8 @@ const user_update = async (user, delegate) =>{
         if (delegate != null)
             delegate();
     } catch (ex) {
-        delegate(ex);
+        console.log(ex.message);
+        delegate({ message: "FORM.GENERIC_ERROR"});
     }
 }
 

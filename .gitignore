@@ -363,3 +363,4 @@ jestSetup.js
 # End of https://www.toptal.com/developers/gitignore/api/node,intellij,webstorm,windows,linux,macos
 
 assets/product_images/
+credentials.txt

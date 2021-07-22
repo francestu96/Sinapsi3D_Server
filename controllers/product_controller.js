@@ -28,7 +28,6 @@ router.get("/", async (req, res, next) => {
 
     product_service.product_list(filter, sort, page, (err, dres) => {
         if (err != null) {
-            console.log(err);
             root_controller.req_fail(res, err.message);
         } else {
             res.send(dres);
@@ -40,7 +39,6 @@ router.get("/", async (req, res, next) => {
 router.get("/:productId", async (req, res, next) => {
     product_service.product_get(req.params.productId, (err, product) => {
         if (err != null) {
-            console.log(err)
             root_controller.req_fail(res, err.message);
         } else {
             res.send(product);
@@ -69,7 +67,6 @@ router.post("/", [auth_middleware.verify_token, auth_middleware.is_admin, upload
         }
         product_service.product_create(payload, async (err, dres) => {
             if (err != null) {
-                console.log(err);
                 root_controller.req_fail(res, err.message);
             } else {
                 for (var i = 0; i < req.files.length; i++){
@@ -89,15 +86,13 @@ router.post("/", [auth_middleware.verify_token, auth_middleware.is_admin, upload
 router.delete("/:productId", [auth_middleware.verify_token, auth_middleware.is_admin], async (req, res, next) => {
     product_service.product_get(req.params.productId, (err, product) => {
         if (err != null) {
-            console.log(err);
             root_controller.req_fail(res, err.message);
             next();
         }
         else {
             product_service.product_remove(req.params.productId, (err) => {
                 if (err != null) {
-                    console.log(err)
-                    root_controller.req_fail(res, err.message)
+                    root_controller.req_fail(res, err.message);
                 } else {
                     res.send();
                 }
