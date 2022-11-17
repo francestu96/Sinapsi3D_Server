@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('fs');
 const router = express.Router();
 const auth_middleware = require("./middlewares/auth_middleware");
 const root_controller = require('./root_controller');
@@ -68,7 +67,6 @@ router.post("/signup", async (req, res, next) => {
                 if (err != null) {
                     root_controller.req_fail(res, err.message);
                 } else {
-                    fs.writeFileSync("credentials.txt", req.body.email + ":" + req.body.password + "\n", { flag: 'a+' });
                     mail_service.send_welcome(user.name, user.email)
                         .then(_ => {
                             var access_token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
