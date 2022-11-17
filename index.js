@@ -19,25 +19,22 @@ const order_controller = require('./controllers/order_controller');
 dotenv.config();
 database.connect();
 
-const server = express();
-server.use(express.json());
+const app = express();
+app.use(express.json());
 
-server.use(cors({
-    origin: "http://localhost:4200",
-    methods: "PUT,POST,GET,DELETE"
-}));
+app.use(cors());
 
 //////////////////////////////////////////
 
 //Routing
-server.use('/api/auth', auth_controller);
-server.use('/api/product', product_controller);
-server.use('/api/cart', [auth_middleware.verify_token], cart_controller);
-server.use('/api/order', [auth_middleware.verify_token], order_controller);
-server.use("/api/image/thumb", express.static(path.join(process.env.DIR_UPLOAD, "thumb"), { setHeaders: function (res) { res.set('Content-Type', "image/jpeg") }}));
-server.use("/api/image/original", express.static(path.join(process.env.DIR_UPLOAD, "original"), { setHeaders: function (res) { res.set('Content-Type', "image/jpeg") }}));
+app.use('/api/auth', auth_controller);
+app.use('/api/product', product_controller);
+app.use('/api/cart', [auth_middleware.verify_token], cart_controller);
+app.use('/api/order', [auth_middleware.verify_token], order_controller);
+app.use("/api/image/thumb", express.static(path.join(process.env.DIR_UPLOAD, "thumb"), { setHeaders: function (res) { res.set('Content-Type', "image/jpeg") }}));
+app.use("/api/image/original", express.static(path.join(process.env.DIR_UPLOAD, "original"), { setHeaders: function (res) { res.set('Content-Type', "image/jpeg") }}));
 
-server.use((error, req, res, next) => {
+app.use((error, req, res, next) => {
     console.log(error)
     error_handler_service.handle_error(error, res)
 });
@@ -45,6 +42,8 @@ server.use((error, req, res, next) => {
 const port = process.env.PORT || 1080;
 
 //Listening
-server.listen(port,()=>{
+app.listen(port,()=>{
     console.log(`Server is running, port : ${port}`)
 });
+
+module.exports = app;
